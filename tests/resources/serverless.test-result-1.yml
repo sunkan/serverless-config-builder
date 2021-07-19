@@ -1,0 +1,39 @@
+service: testing
+
+provider:
+    name: aws
+    region: eu-west-1
+    runtime: provided.al2
+    layers:
+        - ${bref:layer.php-80}
+    stage: ${opt:stage,'dev'}
+    environment:
+        TEST_ENV: test
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    authorizer-handler:
+        handler: App\Authorizer
+
+    test:
+        handler: Tests\Stubs\TestAction
+        events:
+            -   http:
+                    path: GET
+                    method: /test
+                    cors: true
+                    authorizer:
+                        name: authorizer-handler
+                        resultTtlInSeconds: 300
+        tags:
+            service:group: test
+            service:name: test-action
+        environment:
+            DB: test_db
+
+    sqs-handler:
+        handler: Tests\Stubs\TestAction
+        events:
+            -   sqs: arn:to:queue

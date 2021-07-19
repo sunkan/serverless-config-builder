@@ -1,0 +1,18 @@
+service: testing
+
+provider:
+    name: aws
+    region: eu-west-1
+    runtime: provided.al2
+    layers:
+        - ${bref:layer.php-80}
+    stage: ${opt:stage,'dev'}
+    environment:
+        TEST_ENV: 'test'
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    authorizer-handler:
+        handler: App\Authorizer
