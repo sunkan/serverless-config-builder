@@ -7,6 +7,7 @@ use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessAuthorizer;
 use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessCors;
 use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessEnvironment;
 use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessLayer;
+use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessName;
 use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessRoute;
 use Sunkan\ServerlessConfigBuilder\Attributes\ServerlessTag;
 use Sunkan\ServerlessConfigBuilder\Collections\EnvironmentVariables;
@@ -43,6 +44,9 @@ final class HttpFunction extends AbstractFunction
             }
             elseif ($attributeInstance instanceof ServerlessCors) {
                 $cors = $attributeInstance->flag;
+            }
+            elseif ($attributeInstance instanceof ServerlessName) {
+                $name = $attributeInstance->name;
             }
             elseif ($attributeInstance instanceof ServerlessAuthorizer) {
                 $authorizer = $attributeInstance;
