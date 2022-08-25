@@ -4,7 +4,7 @@ namespace Sunkan\ServerlessConfigBuilder\Attributes;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_CLASS)]
+#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS)]
 final class ServerlessRoute
 {
     public const GET = 'GET';
